@@ -1,0 +1,32 @@
+﻿<Window x:Class="TH2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TH2"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="450" Width="800">
+    <Canvas>
+        <Label Content="CHUONG TRINH QUAN LY NHAN VIEN" Canvas.Left="106" Canvas.Top="32" RenderTransformOrigin="1.789,-0.124" HorizontalAlignment="Left" VerticalAlignment="Top" Width="588" FontSize="30"/>
+        <Label  Content="Ma nhan vien" Canvas.Left="57" Canvas.Top="118"/>
+        <Label  Content="Ho ten" Canvas.Left="57" Canvas.Top="148"/>
+        <Label  Content="Gioi tinh" Canvas.Left="57" Canvas.Top="178"/>
+        <Label  Content="Dia chi" Canvas.Left="57" Canvas.Top="208"/>
+        <Label  Content="Luong" Canvas.Left="57" Canvas.Top="238"/>
+        <Label  Content="Thuong" Canvas.Left="57" Canvas.Top="268"/>
+        <TextBox x:Name="id" Canvas.Left="168" TextWrapping="Wrap" Text="" Canvas.Top="118" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox x:Name="name" Canvas.Left="168" TextWrapping="Wrap" Text="" Canvas.Top="150" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <RadioButton x:Name="gender1" Content="Nam" Canvas.Left="168" Canvas.Top="191"/>
+        <RadioButton x:Name="gender0" Content="Nu" Canvas.Left="315" Canvas.Top="192"/>
+        <TextBox x:Name="salary" Canvas.Left="168" TextWrapping="Wrap" Text="" Canvas.Top="251" Width="120"/>
+        <TextBox  x:Name="gift" Height="22" Canvas.Left="168" TextWrapping="Wrap" Text="" Canvas.Top="281" Width="120"/>
+        <ComboBox x:Name="comboBox" Canvas.Left="168" Canvas.Top="217" Width="120">
+            <ComboBoxItem Content="Ha Noi"/>
+            <ComboBoxItem Content="Hai Phong"/>
+            <ComboBoxItem Content="Ninh Binh"/>
+        </ComboBox>
+        <Button Content="Xac nhan" Canvas.Left="477" Canvas.Top="182" Height="32" Width="62" RenderTransformOrigin="-0.17,0.857" Click="Button_XacNhan"/>
+        <Button Content="Xoa" Canvas.Left="632" Canvas.Top="181" Height="36" Width="62" Click="Button_Xoa"/>
+    </Canvas>
+</Window>
