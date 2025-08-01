@@ -1,0 +1,8 @@
+D:\.NET\TX1_2\TX1_2\bin\Debug\TX1_2.exe.config
+D:\.NET\TX1_2\TX1_2\bin\Debug\TX1_2.exe
+D:\.NET\TX1_2\TX1_2\bin\Debug\TX1_2.pdb
+D:\.NET\TX1_2\TX1_2\obj\Debug\TX1_2.csproj.AssemblyReference.cache
+D:\.NET\TX1_2\TX1_2\obj\Debug\TX1_2.csproj.CoreCompileInputs.cache
+D:\.NET\TX1_2\TX1_2\obj\Debug\TX1_2.exe
+D:\.NET\TX1_2\TX1_2\obj\Debug\TX1_2.pdb
+D:\.NET\TX1_2\TX1_2\obj\Debug\TX1_2.exe.config
