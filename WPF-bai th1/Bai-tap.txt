@@ -1,0 +1,16 @@
+Tạo project WPF và làm các bài tập sau:
+
++ Bài 1: Tạo form và viết mã giải phương trình  bậc 2
++ Bài 2: Tạo form nhập vào các thông tin: 
+	- Mã nhân viên, họ tên, giới tính, địa chỉ, lương, thưởng; trong đó thưởng = 10% lương
+	- Trong đó:
+		+ Giới tính là 2 hộp radio có: nam, nữ
+		+ Địa chỉ là hộp combo box có: hà nội, ninh bình, hải phòng
+		+ Lương: nhập vào từ 100 đến 1000
+	- Kiểm tra hợp lệ dữ liệu
+	- Nếu tất cả thông tin đều đúng thì hiển thị kết quả sang cửa sổ khác
++ Bài 3: Sửa các label ở bài 2 sao cho chữ màu brown, phông arial, cỡ 12
++ Bài 4: Sửa các button ở bài 2 sao cho các button sẽ có màu xanh blue, chữ trắng, hình elip.
++ Bài 5: Sửa các textbox ở bải 2 sao cho khi có con trỏ nhảy tới, màu nền là màu #ccf, màu chữ
+	 là màu blue.
+
