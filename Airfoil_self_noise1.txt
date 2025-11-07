@@ -1,0 +1,84 @@
+[1]:
+import pandas as pd
+
+# ✅ Đọc file .dat có khoảng trắng/tab làm dấu tách
+data = pd.read_csv(
+    r"D:\DownLoads\DataAI\airfoil_self_noise.dat",   # đường dẫn file của bạn
+    delim_whitespace=True,  # tách cột bằng khoảng trắng hoặc tab
+    header=None             # file gốc không có dòng tiêu đề
+)
+
+# ✅ Gán đúng tên cột theo mô tả đề bài
+data.columns = [
+    'Frequency (Hz)',
+    'Angle of attack (°)',
+    'Chord length (m)',
+    'Free-stream velocity (m/s)',
+    'Suction side displacement thickness (m)',
+    'Scaled sound pressure level (dB)'
+]
+
+# ✅ Kiểm tra dữ liệu đã đọc
+print(data.head())
+print(data.info())
+
+
+[1]:
+import matplotlib.pyplot as plt
+
+# (a) Biểu đồ giữa vận tốc dòng không khí và áp suất âm thanh
+plt.figure(figsize=(6,4))
+plt.scatter(data['Free-stream velocity (m/s)'], data['Scaled sound pressure level (dB)'],
+            color='teal', alpha=0.6)
+plt.title('Mối quan hệ giữa vận tốc dòng không khí và mức áp suất âm thanh')
+plt.xlabel('Vận tốc dòng không khí (m/s)')
+plt.ylabel('Áp suất âm thanh (dB)')
+plt.show()
+
+[1]:
+# (b) Biểu đồ giữa chiều dài chord, vận tốc và SSPL (dB)
+plt.figure(figsize=(6,5))
+scatter = plt.scatter(
+    data['Chord length (m)'], data['Free-stream velocity (m/s)'],
+    c=data['Scaled sound pressure level (dB)'], cmap='coolwarm', alpha=0.7
+)
+plt.colorbar(scatter, label='Scaled Sound Pressure Level (dB)')
+plt.title('Quan hệ giữa chord length, velocity và SSPL')
+plt.xlabel('Chord length (m)')
+plt.ylabel('Free-stream velocity (m/s)')
+plt.show()
+
+[1]:
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+# Biến độc lập (X) và phụ thuộc (y)
+X = data[['Frequency (Hz)', 'Angle of attack (°)', 'Chord length (m)',
+          'Free-stream velocity (m/s)', 'Suction side displacement thickness (m)']]
+y = data['Scaled sound pressure level (dB)']
+
+# Chia train/test (80/20)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Huấn luyện mô hình
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+[1]:
+from sklearn.metrics import mean_squared_error
+
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print(f"MSE trên tập test: {mse:.2f}")
+
+[1]:
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+
+# Chuẩn hóa + hồi quy đa thức bậc 2
+poly_model = make_pipeline(StandardScaler(), PolynomialFeatures(degree=2), LinearRegression())
+poly_model.fit(X_train, y_train)
+
+y_pred_poly = poly_model.predict(X_test)
+mse_poly = mean_squared_error(y_test, y_pred_poly)
+print(f"MSE (Polynomial Regression bậc 2): {mse_poly:.2f}")
