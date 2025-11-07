@@ -1,0 +1,68 @@
+[1]: import pandas as pd
+
+data = pd.read_csv("D:/DownLoads/Wholesale customers data.csv")
+print(data.head())
+print(data.info())
+
+[2]:  import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,4))
+data['Region'].value_counts().plot(kind='bar', color='skyblue', edgecolor='black')
+plt.title('Số lượng mẫu theo từng Region')
+plt.xlabel('Region')
+plt.ylabel('Số lượng khách hàng')
+plt.show()
+
+[3]:from sklearn.model_selection import train_test_split
+
+X = data.drop(['Region'], axis=1)   # Đầu vào (feature)
+y = data['Region']  
+
+[4]:X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, stratify=y, random_state=42
+)
+
+[5]:from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+[6]:from sklearn.neighbors import KNeighborsClassifier
+
+knn = KNeighborsClassifier(n_neighbors=6)
+knn.fit(X_train_scaled, y_train)
+
+
+[7]: from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+import seaborn as sns
+
+y_pred = knn.predict(X_test_scaled)
+
+# Ma trận nhầm lẫn
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.title('Confusion Matrix (K=6)')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+
+# Báo cáo phân loại
+print("Classification Report (K=6):")
+print(classification_report(y_test, y_pred))
+print("Accuracy:", accuracy_score(y_test, y_pred))
+
+[8]: best_k = 0
+best_acc = 0
+
+for k in range(1, 21):
+    model = KNeighborsClassifier(n_neighbors=k)
+    model.fit(X_train_scaled, y_train)
+    acc = model.score(X_test_scaled, y_test)
+    print(f"k={k} => Accuracy={acc:.2%}")
+    if acc > best_acc:
+        best_acc = acc
+        best_k = k
+
+print(f"\nBest K = {best_k}, Accuracy = {best_acc:.2%}")
+
