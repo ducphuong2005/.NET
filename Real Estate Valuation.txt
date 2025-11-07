@@ -1,0 +1,66 @@
+[1]:
+import pandas as pd
+
+# Đọc file Excel đúng cách
+data = pd.read_excel(r"D:\Downloads\Real estate valuation data set.xlsx")
+
+# Xem 5 dòng đầu và thông tin cột
+print(data.head())
+print(data.info())
+
+[2]:
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,4))
+plt.scatter(data['X2 house age'], data['Y house price of unit area'], color='teal', alpha=0.6)
+plt.title('Mối quan hệ giữa tuổi nhà và giá nhà')
+plt.xlabel('Tuổi nhà (năm)')
+plt.ylabel('Giá nhà trên mỗi đơn vị diện tích')
+plt.show()
+
+[3]:
+plt.figure(figsize=(6,5))
+scatter = plt.scatter(
+    data['X5 latitude'], data['X6 longitude'],
+    c=data['Y house price of unit area'], cmap='coolwarm', alpha=0.7
+)
+plt.colorbar(scatter, label='Giá nhà (10,000 NTD/ping)')
+plt.title('Vị trí địa lý và giá nhà')
+plt.xlabel('Vĩ độ (latitude)')
+plt.ylabel('Kinh độ (longitude)')
+plt.show()
+
+[4]:
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+# Chọn biến độc lập (X) và biến phụ thuộc (y)
+X = data[['X1 transaction date','X2 house age','X3 distance to the nearest MRT station',
+          'X4 number of convenience stores','X5 latitude','X6 longitude']]
+y = data['Y house price of unit area']
+
+# Chia dữ liệu
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Huấn luyện mô hình
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+[5]:
+from sklearn.metrics import mean_squared_error
+
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print(f"MSE trên tập test: {mse:.2f}")
+
+[6]:
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+
+poly_model = make_pipeline(PolynomialFeatures(degree=2), LinearRegression())
+poly_model.fit(X_train, y_train)
+y_pred_poly = poly_model.predict(X_test)
+mse_poly = mean_squared_error(y_test, y_pred_poly)
+print(f"MSE (Polynomial Regression bậc 2): {mse_poly:.2f}")
+
+
