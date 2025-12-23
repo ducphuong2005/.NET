@@ -1,0 +1,9 @@
+﻿@model IEnumerable<KTHP_De2Emp.Models.Department>
+
+@foreach(var item in Model)
+{
+    var url = "/GetEmployeeDepart/" + item.deptid;
+    <li>
+        <a href="@url" class="nav-link">@item.deptname</a>
+    </li>
+}    

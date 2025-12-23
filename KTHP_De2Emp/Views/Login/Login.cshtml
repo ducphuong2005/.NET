@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="my-3">
+        <label for="username" class="form-label">Tên đăng nhập</label>
+        <input type="text" class="form-control" name="username" placeholder="Nhập...." />
+    </div>
+    <div class="my-3">
+        <label for="password" class="form-label">Mật khẩu</label>
+        <input type="password" class="form-control" name="password" placeholder="123..." />
+    </div>
+    <div class="my-3">
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+    </div>
+}    
+<div class="text-danger">
+    @ViewBag.msg
+</div>
